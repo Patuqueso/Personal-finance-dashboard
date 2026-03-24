@@ -1,0 +1,29 @@
+{
+    "goals": [
+        {
+            "id": 0,
+            "name": "Car Fund",
+            "target_amount": 20000,
+            "current_amount": 0.0,
+            "status": "active",
+            "date_completed": null
+        },
+        {
+            "id": 1,
+            "name": "Desk",
+            "target_amount": 1200,
+            "current_amount": 1200,
+            "status": "completed",
+            "date_completed": "2026-03-19"
+        },
+        {
+            "id": 2,
+            "name": "Trip",
+            "target_amount": 3000,
+            "current_amount": 3000.0,
+            "status": "ready",
+            "date_completed": null
+        }
+    ],
+    "next_goal_id": 3
+}

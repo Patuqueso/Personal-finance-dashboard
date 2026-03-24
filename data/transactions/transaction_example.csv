@@ -1,0 +1,22 @@
+Account Type,Account Number,Transaction Date,Cheque Number,Description 1,Description 2,CAD$,USD$
+
+Chequing,1234,2026-03-01,,Payroll Deposit-Company Inc,,2500.00,
+Chequing,1234,2026-03-02,,Presto Load,, -50.00,
+Chequing,1234,2026-03-03,,Uber Trip,, -18.75,
+Chequing,1234,2026-03-04,,Grocery Store,, -82.40,
+Chequing,1234,2026-03-05,,Netflix Subscription,, -15.99,
+Chequing,1234,2026-03-06,,Amazon Purchase,, -45.20,
+Chequing,1234,2026-03-07,,Restaurant,, -32.10,
+Chequing,1234,2026-03-08,,E-Transfer Sent,, -200.00,
+Chequing,1234,2026-03-09,,Mobile Cheque Deposit,,500.00,
+Chequing,1234,2026-03-10,,Spotify,, -11.99,
+
+Credit Card,5678,2026-03-02,,Gas Station,, -60.00,
+Credit Card,5678,2026-03-03,,Fast Food,, -14.25,
+Credit Card,5678,2026-03-04,,Steam Purchase,, -29.99,
+Credit Card,5678,2026-03-05,,Clothing Store,, -120.00,
+Credit Card,5678,2026-03-06,,Uber Eats,, -25.60,
+Credit Card,5678,2026-03-07,,Apple.com Bill,, -9.99,
+Credit Card,5678,2026-03-08,,Shoppers Drug Mart,, -18.45,
+Credit Card,5678,2026-03-09,,Lottery,, -10.00,
+Credit Card,5678,2026-03-10,,Monthly Fee,, -12.00,

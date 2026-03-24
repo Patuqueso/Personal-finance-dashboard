@@ -1,0 +1,60 @@
+# Example categorization rules
+# Customize this file based on your own transaction descriptions
+
+priority,match,category
+
+100,payment - thank you,Transfer
+100,online banking transfer,Transfer
+100,deposit online transfer,Transfer
+100,e-transfer sent,Transfer
+
+95,purchase interest,Interest & Fees
+95,cash advance interest,Interest & Fees
+95,cash advance fee,Interest & Fees
+95,monthly fee,Interest & Fees
+
+90,presto,Transport
+90,uber,Transport
+90,uber trip,Transport
+90,lyft,Transport
+
+85,netflix,Subscriptions
+85,spotify,Subscriptions
+85,apple.com,Subscriptions
+85,primevideo,Subscriptions
+85,amazon prime,Subscriptions
+85,xbox game pass,Subscriptions
+
+80,grocery store,Groceries
+80,supermarket,Groceries
+80,farmers market,Groceries
+80,food market,Groceries
+
+75,restaurant,Eating Out
+75,cafe,Eating Out
+75,fast food,Eating Out
+75,food delivery,Eating Out
+
+70,steam,Entertainment
+70,game store,Entertainment
+70,movie theatre,Entertainment
+70,lottery,Entertainment
+
+65,clothing store,Shopping
+65,online retail,Shopping
+65,home goods,Shopping
+65,electronics store,Shopping
+
+60,barber,Personal Care
+60,salon,Personal Care
+
+55,government payment,Taxes & Government
+55,tax payment,Taxes & Government
+55,municipal services,Taxes & Government
+
+50,student loan,Debt Repayment
+
+45,payroll deposit,Income
+45,direct deposit,Income
+45,e-transfer - autodeposit,Income
+100,mobile cheque deposit,Income
