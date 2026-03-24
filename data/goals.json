@@ -2,28 +2,44 @@
     "goals": [
         {
             "id": 0,
-            "name": "Car Fund",
-            "target_amount": 20000,
-            "current_amount": 0.0,
+            "name": "Emergency Car Repair",
+            "target_amount": 1800,
+            "current_amount": 450.0,
             "status": "active",
             "date_completed": null
         },
         {
             "id": 1,
-            "name": "Desk",
-            "target_amount": 1200,
-            "current_amount": 1200,
+            "name": "Japan Trip",
+            "target_amount": 4200,
+            "current_amount": 2100.0,
+            "status": "waiting",
+            "date_completed": null
+        },
+        {
+            "id": 2,
+            "name": "New Laptop",
+            "target_amount": 2500,
+            "current_amount": 2500.0,
+            "status": "ready",
+            "date_completed": null
+        },
+        {
+            "id": 3,
+            "name": "Standing Desk",
+            "target_amount": 900,
+            "current_amount": 900.0,
             "status": "completed",
             "date_completed": "2026-03-19"
         },
         {
-            "id": 2,
-            "name": "Trip",
-            "target_amount": 3000,
-            "current_amount": 3000.0,
-            "status": "ready",
+            "id": 4,
+            "name": "Camera Upgrade",
+            "target_amount": 1600,
+            "current_amount": 200.0,
+            "status": "inactive",
             "date_completed": null
         }
     ],
-    "next_goal_id": 3
+    "next_goal_id": 5
 }

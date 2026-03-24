@@ -1,181 +1,270 @@
-📊 Personal Finance Dashboard
+# Personal Finance Dashboard
 
-Local Streamlit dashboard for tracking:
+A Streamlit dashboard for reviewing transaction history, categorizing spending, tracking balances over time, and managing savings goals.
 
-Monthly spending
+## What the app does
 
-Categorized expenses
+The dashboard is split into four main sections:
 
-Assets vs liabilities
+- Financial position: reads your account balances, shows total assets, liabilities, net worth, and credit utilization.
+- Historical data and trajectory: stores balance snapshots and charts net worth, credit utilization, and individual account balances over time.
+- Goals and allocations: tracks savings goals and compares allocated goal money against your savings balance, while reserving a built-in emergency fund.
+- Monthly spending: loads transaction CSVs, auto-categorizes them with keyword rules, and shows income, spending totals, a category pie chart, and the raw transactions for the selected month.
 
-Net worth
+## Project structure
 
-Credit utilization
-
-Financial trajectory over time
-
-Runs fully locally. No APIs. No subscriptions.
-
-🛠 Requirements
-
-Python 3.12+
-
-Virtual environment
-
-pandas
-
-plotly
-
-streamlit
-
-🚀 How to Run the Dashboard
-1️⃣ Navigate to project folder
-cd ~/finance_dashboard
-2️⃣ Activate virtual environment
-source venv/bin/activate
-
-You should see:
-
-(venv) patuqueso@...
-3️⃣ Start Streamlit
-streamlit run app.py
-
-Then open:
-
-http://localhost:8501
-📂 Project Structure
+```text
 finance_dashboard/
-│
 ├── app.py
 ├── finance/
+│   ├── balances.py
+│   ├── history.py
+│   └── transactions.py
 ├── goals/
+│   ├── model.py
+│   ├── operations.py
+│   └── storage.py
 ├── utils/
+│   ├── categorization.py
+│   └── paths.py
 ├── data/
+│   ├── transactions/
 │   ├── balances.csv
+│   ├── balances_history.csv
 │   ├── goals.json
-│   ├── net_worth_history.csv
-│   ├── rules.csv
-│   └── transactions/
-│       ├── chequing.csv
-│       ├── visa.csv
-│       └── savings.csv
-└── venv/
-📥 Adding New Transaction Data
+│   ├── rules_example.csv
+│   └── config.json
+└── README.md
+```
 
-Each month:
+## Requirements
 
-1️⃣ Download CSVs from RBC
+- Python 3.10+
+- `streamlit`
+- `pandas`
+- `plotly`
 
-Export separately for:
+Install them with:
 
-Chequing
+```bash
+pip install streamlit pandas plotly
+```
 
-Credit card
+## Getting started
 
-Savings (if used)
+### 1. Clone the repo
 
-Format must include:
+```bash
+git clone https://github.com/Patuqueso/Personal-finance-dashboard.git
+cd finance_dashboard
+```
 
-Transaction Date
-Description 1
-Description 2
-CAD$
-2️⃣ Place CSV files into:
-finance_dashboard/data/transactions/
+### 2. Create and activate a virtual environment
 
-You can:
+```bash
+python -m venv venv
+source venv/bin/activate
+```
 
-Replace old files
-or
+On Windows:
 
-Keep adding new ones (app concatenates all CSVs)
+```bash
+venv\Scripts\activate
+```
 
-No manual cleaning needed.
+### 3. Prepare the data files
 
-3️⃣ Restart Streamlit (if running)
+The app reads from files inside `data/`.
 
-Stop with:
+The repository already includes fake sample data for transactions, rules, balances, balance history, and goals so you can run the dashboard immediately.
 
-Ctrl + C
+If you want to replace the sample transaction data with your own file, put one or more CSVs in `data/transactions/`.
 
-Then:
+If you want to rebuild the rules file from the example copy, use:
 
-streamlit run app.py
-💰 Updating Account Balances
+```bash
+cp data/rules_example.csv data/rules.csv
+```
 
-Edit:
+You can keep multiple transaction CSV files in `data/transactions/`. The app loads every `.csv` file in that folder and combines them.
 
-data/balances.csv
+### 4. Add balances
 
-Format:
+The repo already includes a fake `data/balances.csv`. If you want to replace it, use this structure:
 
+```csv
 account,type,balance,limit
-Chequing,Asset,2000,0
-TFSA,Asset,5000,0
+Chequing,Asset,2500,0
+Savings,Asset,8000,0
 Credit Card,Liability,1200,5000
-Student Loan,Liability,15000,0
+```
 
-type must be Asset or Liability
+Notes:
 
-limit only needed for credit cards
+- `type` must be `Asset` or `Liability`.
+- `limit` is mainly used for the `Credit Card` row so the app can calculate credit utilization.
+- The goals allocation summary specifically looks for an account named `Savings`.
 
-📈 Saving Monthly Snapshot
+### 5. Run the app
 
-At end of each month:
+```bash
+streamlit run app.py
+```
 
-Update data/balances.csv
+## Data files
 
-Click "Save Monthly Snapshot"
+### `data/transactions/*.csv`
 
-This updates:
+The app expects RBC-style transaction exports and combines all CSV files in `data/transactions/`.
 
-data/net_worth_history.csv
+Important columns used by the code:
 
-Snapshots are stored by month (YYYY-MM).
+- `Transaction Date`
+- `Description 1`
+- `Description 2`
+- `CAD$`
 
-If you click twice in same month → it overwrites.
+What happens during loading:
 
-🧠 Category Rules
+- `Transaction Date` is converted to a month label used in the sidebar filter.
+- `Description 1` and `Description 2` are merged into a single description.
+- `CAD$` is renamed to `Amount`.
+- Rules from `data/rules.csv` are used to assign categories.
 
-Edit:
+Important format note:
 
-data/rules.csv
+- The loader currently parses `Transaction Date` using `MM/DD/YYYY`.
+- If your CSV uses another format, those rows may be skipped unless you convert the dates first.
 
-Format:
+### `data/rules.csv`
 
+This file is required for categorization. The repository includes `data/rules_example.csv`, but the app reads `data/rules.csv`.
+
+Expected columns:
+
+```csv
 priority,match,category
-100,uber,Transport
-90,amazon prime,Subscriptions
-80,amazon,G shopping
-70,presto,Transport
-...
+100,e-transfer sent,Transfer
+90,uber,Transport
+80,grocery store,Groceries
+45,payroll deposit,Income
+```
 
-Higher priority runs first
+How rules work:
 
-First match wins
+- Rules are matched against the lowercased transaction description.
+- Higher `priority` values are checked first.
+- The first matching rule wins.
+- If nothing matches, the transaction is categorized as `Other`.
 
-No match → "Other"
+### `data/balances.csv`
 
-🔒 Notes
+Used for:
 
-Transfers and Interest & Fees are excluded from spending totals
+- assets vs. liabilities tables
+- net worth
+- credit utilization
+- savings allocation summary
 
-Everything runs locally
+The repository includes a fake sample file with:
 
-No banking APIs
+- `Chequing`
+- `Savings`
+- `TFSA`
+- `Credit Card`
+- `Student Loan`
 
-No external data transmission
+Expected columns:
 
-🧘 Monthly Ritual
+```csv
+account,type,balance,limit
+Chequing,Asset,2500,0
+Savings,Asset,8000,0
+Credit Card,Liability,1200,5000
+```
 
-At month-end:
+### `data/balances_history.csv`
 
-Download CSVs
+Stores historical balance snapshots. The dashboard updates this file when you use the balance update controls in the app.
 
-Drop into /data
+The repository includes fake monthly snapshots from November 30, 2025 through March 23, 2026 so the history charts render immediately.
 
-Update balances
+Expected columns:
 
-Save snapshot
+```csv
+date,account,type,balance,limit
+2026-03-23,Chequing,Asset,2500,0
+2026-03-23,Savings,Asset,8000,0
+2026-03-23,Credit Card,Liability,1200,5000
+```
 
-Review trajectory
+If this file is empty, the historical charts will stay blank until you update balances in the UI.
+
+### `data/goals.json`
+
+Stores your goal list and the next available goal ID.
+
+The repository includes fake goals that showcase every supported status:
+
+- `active`
+- `waiting`
+- `ready`
+- `completed`
+- `inactive`
+
+File structure:
+
+```json
+{
+  "goals": [
+    {
+      "id": 0,
+      "name": "Car Fund",
+      "target_amount": 20000,
+      "current_amount": 0,
+      "status": "active",
+      "date_completed": null
+    }
+  ],
+  "next_goal_id": 1
+}
+```
+
+The dashboard displays and manages goals already present in this file.
+
+## Goals and allocation logic
+
+The allocation summary is based on your `Savings` account balance.
+
+Current behavior in code:
+
+- Savings balance is pulled from the account named `Savings`.
+- A fixed emergency fund of $3000 is reserved (configurable in future versions).
+- Goal amounts with status `active`, `waiting`, or `ready` count as allocated.
+- Remaining allocatable money is calculated as:
+
+```text
+Savings - Emergency Fund - Allocated Goal Money
+```
+
+If the remaining value drops below zero, the app shows an overallocation warning.
+
+## What is included in this repo
+
+- Fake transaction data: [data/transactions/transaction_example.csv](/home/patuqueso/finance_dashboard/data/transactions/transaction_example.csv)
+- Fake categorization rules: [data/rules.csv](/home/patuqueso/finance_dashboard/data/rules.csv)
+- Copyable rules example: [data/rules_example.csv](/home/patuqueso/finance_dashboard/data/rules_example.csv)
+- Fake balances: [data/balances.csv](/home/patuqueso/finance_dashboard/data/balances.csv)
+- Fake balance history: [data/balances_history.csv](/home/patuqueso/finance_dashboard/data/balances_history.csv)
+- Fake goals data: [data/goals.json](/home/patuqueso/finance_dashboard/data/goals.json)
+
+## Known setup details
+
+- The sample balances and goals are intentionally set up so the allocation summary shows an overallocated state. This helps demonstrate the warning UI.
+- The dashboard stops early if no transaction CSV files are found in `data/transactions/`.
+
+## Tech stack
+
+- Streamlit
+- Pandas
+- Plotly

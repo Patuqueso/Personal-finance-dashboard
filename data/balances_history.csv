@@ -1,0 +1,26 @@
+date,account,type,balance,limit
+2025-11-30,Chequing,Asset,2810.14,0
+2025-11-30,Savings,Asset,5400.00,0
+2025-11-30,TFSA,Asset,10850.00,0
+2025-11-30,Credit Card,Liability,2145.77,5000
+2025-11-30,Student Loan,Liability,10420.00,0
+2025-12-31,Chequing,Asset,2985.22,0
+2025-12-31,Savings,Asset,5900.00,0
+2025-12-31,TFSA,Asset,11120.00,0
+2025-12-31,Credit Card,Liability,1988.63,5000
+2025-12-31,Student Loan,Liability,10275.00,0
+2026-01-31,Chequing,Asset,3124.48,0
+2026-01-31,Savings,Asset,6400.00,0
+2026-01-31,TFSA,Asset,11540.00,0
+2026-01-31,Credit Card,Liability,1732.10,5000
+2026-01-31,Student Loan,Liability,10110.00,0
+2026-02-28,Chequing,Asset,2876.90,0
+2026-02-28,Savings,Asset,6800.00,0
+2026-02-28,TFSA,Asset,11875.00,0
+2026-02-28,Credit Card,Liability,2240.56,5000
+2026-02-28,Student Loan,Liability,9950.00,0
+2026-03-23,Chequing,Asset,3240.55,0
+2026-03-23,Savings,Asset,7000.00,0
+2026-03-23,TFSA,Asset,12000.00,0
+2026-03-23,Credit Card,Liability,1865.42,5000
+2026-03-23,Student Loan,Liability,9800.00,0

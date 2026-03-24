@@ -1,0 +1,6 @@
+account,type,balance,limit
+Chequing,Asset,3240.55,0
+Savings,Asset,7000.00,0
+TFSA,Asset,12000.00,0
+Credit Card,Liability,1865.42,5000
+Student Loan,Liability,9800.00,0

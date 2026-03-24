@@ -1,9 +1,3 @@
-# Data
-!data/transactions/*
-data/balances.csv
-data/balances_history.csv
-!data/goals.json
-
 # Python
 __pycache__/
 *.pyc
